@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from 'react-router-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Route from './routes';
 
 const App = () => (
@@ -14,5 +14,5 @@ ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
-  document.getElementById("index")
+  document.getElementById('index'),
 );
