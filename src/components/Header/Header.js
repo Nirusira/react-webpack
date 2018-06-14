@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const Header = () => (
   <div>
     Header
-    <p>
+    {/* <p>
       <Link to="/about">About</Link>
     </p>
     <p>
       <Link to="/">Home</Link>
-    </p>
+    </p> */}
   </div>
 );
 
