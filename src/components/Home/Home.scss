@@ -1,5 +1,5 @@
-.home {
-  font-size: 15px;
+.spreadsheet {
+  color: #252525;
 }
 .exl__table {
   border-collapse: collapse;
@@ -20,6 +20,26 @@
   tr:hover {
     cursor: pointer;
   }
+}
+.select-all {
+  margin-right: 15px;
+}
+.select-all, .de-select {
+  float: right;
+  padding: 5px 15px;
+  background: #00ACC1;
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 15px;
+  box-shadow: 0 0 1px #00ACC1;
+  cursor: pointer;
+  border: 1px solid #00ACC1;
+}
+.select-all:hover, .de-select:hover {
+  box-shadow: 0 0 5px #00ACC1;
+}
+.select-all:focus, .de-select:focus {
+  outline: none;
 }
 .alert {
   position: fixed;

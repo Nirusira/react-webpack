@@ -17,33 +17,12 @@ class Home extends Component {
     this.hideAlert = () => {
       let i = 1;
       const alertFade = setInterval(() => {
+        i -= 0.1;
         if (i < 0) {
           clearInterval(alertFade);
           this.setState({ alert: false });
-        } else if (this.alertRef.current) {
-          i -= 0.09;
-          this.alertRef.current.style.opacity = i;
         }
       }, 100);
-    };
-    this.selectRow = () => {
-      // this.deselect();
-      // // Clear multi selected
-      // const totalRows = document.querySelectorAll('.exl__table tbody tr').length;
-      // for (let j = 0; j < totalRows; j += 1) {
-      //   document.querySelectorAll('.exl__table tbody tr')[j].style.background = '';
-      // }
-      // const row = e.target.parentNode;
-      // const cols = row.childNodes;
-      // let copyText = '';
-      // if (cols.length > 0) {
-      //   for (let i = 0; i < cols.length; i += 1) {
-      //     copyText += `${cols[i].innerText}, `;
-      //   }
-      //   copyText = copyText.replace(/,\s*$/, '');
-      //   copy(copyText);
-      //   this.setState({ alert: true });
-      // }
     };
     this.startMultiselect = (e) => {
       if (e.target.parentNode.style.background) {
@@ -58,21 +37,39 @@ class Home extends Component {
         e.target.parentNode.style.background = '#f1f1f1';
       }
     };
-    this.deselect = () => {
-      this.setState({ start: false });
+    this.selectRows = () => {
       let copyText = '';
       const rows = document.querySelectorAll('.exl__table tbody tr');
       for (let i = 0; i < rows.length; i += 1) {
-        if (copyText !== '') {
-          copyText += '\n';
-        }
         if (rows[i].style.background) {
+          if (copyText !== '') {
+            copyText += '\n';
+          }
           for (let j = 0; j < rows[i].childNodes.length; j += 1) {
             copyText += `${rows[i].childNodes[j].innerText}, `;
           }
         }
       }
       copyText = copyText.replace(/,\s*$/, '');
+      return copyText;
+    };
+    this.deselect = () => {
+      copy(this.selectRows());
+      this.setState({ alert: true, start: false });
+    };
+    this.toggleAllSelect = (flag) => {
+      let copyText = '';
+      const rows = document.querySelectorAll('.exl__table tbody tr');
+      if (flag === 'clear') {
+        for (let i = 0; i < rows.length; i += 1) {
+          rows[i].style.background = '';
+        }
+      } else {
+        for (let i = 0; i < rows.length; i += 1) {
+          rows[i].style.background = '#f1f1f1';
+        }
+        copyText = this.selectRows();
+      }
       copy(copyText);
     };
   }
@@ -86,7 +83,9 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className="home">
+      <div className="spreadsheet">
+        <button onClick={() => this.toggleAllSelect('clear')} className="de-select">De-select All</button>
+        <button onClick={() => this.toggleAllSelect('select')} className="select-all">Copy all rows of page</button>
         {
           this.state.users.length > 0 &&
           <table className="exl__table">
